@@ -16,7 +16,7 @@ function App() {
     async function fetchData() {
       try {
         //prendo la lista dei Pokemon
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=8');
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=6');
         const data = await response.json();
 
         //recuper i dettagli per ogni Pokemon
@@ -32,7 +32,14 @@ function App() {
           })
         );
 
-        setCards(results);
+        //creo le coppie duplicate
+        const duplicatedCards = [...results, ...results.map(item => ({ ...item, id: item.id + 10000 }))];
+
+        //mischio le cards dei pokemon
+        const shuffledCards = duplicatedCards.sort(() => Math.random() - 0.5);
+
+        //aggiorno lo stato delle cards
+        setCards(shuffledCards);
 
       } catch (error) {
         throw new Error(`Non è stato possibile recuperare i dati del fetch dei Pokemon:${error}`);
@@ -45,14 +52,14 @@ function App() {
 
   return (
     <>
-      <h1>Metti alla prova la tua memoria</h1>
+      <h1 className="text-xl my-10 text-center">Metti alla prova la tua memoria!</h1>
 
-      <section>
-        <h4>Seleziona un elemento:</h4>
-        <ul>
-          {cards.length > 0 && (cards.map(card => <li key={card.id}>
+      <section className="container mx-auto px-4 mb-10">
+        <h4 className="mb-10">Seleziona una carta:</h4>
+        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {cards.length > 0 && (cards.map(card => <li className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center hover:scale-105 transition-transform" key={card.id}>
             <img src={card.image || ''} alt={card.name} />
-            <p>{card.name}</p>
+            <p>{card.name.charAt(0).toUpperCase() + card.name.slice(1)}</p>
           </li>))}
         </ul>
       </section>
