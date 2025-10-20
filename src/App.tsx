@@ -95,18 +95,18 @@ function App() {
     <>
       <h1 className="text-xl my-10 text-center">Metti alla prova la tua memoria!</h1>
 
-      <section className="container mx-auto px-4 mb-10">
+      <section className="container mx-auto px-4 mb-10 max-w-[60rem] lg:max-w-[70rem] xl:max-w-[80rem]">
         <h4 className="mb-10">Trova le coppie di Pokèmon!</h4>
 
 
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <ul className="grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {cards.length > 0 && (cards.map(card => {
 
             const isFlipped = flippedCard.includes(card.id) || matchedCards.includes(card.id);
 
             return (
               <li key={card.id}
-                className="relative w-32 h-44 cursor-pointer perspective"
+                className="relative w-60 h-80 cursor-pointer perspective"
                 onClick={() => handleFlip(card.id)}
               >
 
@@ -114,9 +114,9 @@ function App() {
 
 
                   {/* Retro della card */}
-                  <div className="absolute w-full h-full rounded-xl bg-gray-100 shadow-lg backface-hidden flex items-center justify-center">
+                  <div className="absolute w-full h-full rounded-xl shadow-lg backface-hidden flex items-center justify-center overflow-hidden bg-[#023272]">
 
-                    <img src="/back-card.webp" alt="back card" className="w-24 h-24 object-contain" />
+                    <img src="/back-card.png" alt="back card" className="w-full h-full object-contain" />
 
                   </div>
 
@@ -124,9 +124,9 @@ function App() {
 
                   <div className="absolute w-full h-full rotate-y-180 rounded-xl bg-white shadow-lg backface-hidden flex flex-col items-center justify-center p-2">
 
-                    <img src={card.image || ''} alt={card.name} className="w-24 h-24 object-contain" />
+                    <img src={card.image || ''} alt={card.name} className="w-60 h-80 object-contain" />
 
-                    <p className="capitalize text-sm mt-2">
+                    <p className="text-lg mt-2">
                       {card.name.charAt(0).toUpperCase() + card.name.slice(1)}
                     </p>
                   </div>
