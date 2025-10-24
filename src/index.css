@@ -17,3 +17,9 @@
 .rotate-y-180 {
     transform: rotateY(180deg);
 }
+
+/* body {
+    background-image: url('/public/sfondo-pokemon.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+} */

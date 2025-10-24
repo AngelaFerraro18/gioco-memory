@@ -127,31 +127,32 @@ function App() {
 
 
   return (
-    <>
-      <h1 className="text-xl my-10 text-center">Metti alla prova la tua memoria!</h1>
+    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/sfondo-pokemon.webp')" }}>
+      <h1 className="text-xl mb-10 pt-10 text-center">Metti alla prova la tua memoria!</h1>
 
-      <section className="container mx-auto px-4 mb-10 max-w-[60rem] lg:max-w-[70rem] xl:max-w-[80rem]">
+      <section className="container mx-auto px-4 pb-10 max-w-[60rem] lg:max-w-[70rem] xl:max-w-[80rem]">
         <h4 className="mb-10">Trova le coppie di Pokèmon!</h4>
 
-        {/* select per la difficoltà */}
-        <div>
-          <label htmlFor="difficulty">Seleziona la difficoltà:</label>
-          <select
-            id="difficulty"
-            value={difficulty}
-            onChange={e => setDifficulty(Number(e.target.value))}
-          >
-            <option value={4}>Facile</option>
-            <option value={6}>Medio</option>
-            <option value={8}>Difficile</option>
-          </select>
-        </div>
+        <div className="flex justify-between mb-10">
+          {/* select per la difficoltà */}
+          <div>
+            <label htmlFor="difficulty">Seleziona la difficoltà:</label>
+            <select
+              id="difficulty"
+              value={difficulty}
+              onChange={e => setDifficulty(Number(e.target.value))}
+            >
+              <option value={4}>Facile</option>
+              <option value={6}>Medio</option>
+              <option value={8}>Difficile</option>
+            </select>
+          </div>
 
-        {/* contatore Pokemon catturati/indovinati */}
-        <div>
-          <h5>Pokèmon catturati: {count}</h5>
+          {/* contatore Pokemon catturati/indovinati */}
+          <div>
+            <h5>Pokèmon catturati: {count}</h5>
+          </div>
         </div>
-
 
         {/* modale della vittoria */}
         <Modal isOpen={isVictory} onClose={() => setIsVictory(false)}>
@@ -185,7 +186,7 @@ function App() {
           }
         </ul>
       </section>
-    </>
+    </div>
   )
 }
 
