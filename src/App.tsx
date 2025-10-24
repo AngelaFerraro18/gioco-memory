@@ -61,12 +61,15 @@ function App() {
 
   //funzione per girare le cards
   function handleFlip(id: number) {
+
+    //se la carta è già cliccata allora non fa nulla, altrimenti la gira
     if (flippedCard.includes(id) || disabled) return;
 
+    //aggiorno le carte già girate con quella che è stata cliccata
     const newFlippedCard = [...flippedCard, id];
-
     setFlippedCard(newFlippedCard);
 
+    //se l'utente ha già scoperto due carte, faccio in modo che non si scoprano altre carte mentre fa il confronto
     if (newFlippedCard.length === 2) {
       setDisabled(true);
 
@@ -76,6 +79,8 @@ function App() {
 
       const secondCard = cards.find(c => c.id === secondId);
 
+
+      //confronto le carte scoperte dall'utente
       if (firstCard && secondCard && firstCard.name === secondCard.name) {
         setMatchedCards(prev => [...prev, firstId, secondId]);
         setFlippedCard([]);
