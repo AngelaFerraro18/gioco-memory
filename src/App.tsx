@@ -24,6 +24,9 @@ function App() {
   //variabile di stato per la difficoltà, inizialmente 6 Pokemon
   const [difficulty, setDifficulty] = useState(6);
 
+  //variabile di stato per contatore dei Pokemon
+  const [count, setCount] = useState(0);
+
   //chiamata API
   useEffect(() => {
     async function fetchData() {
@@ -99,6 +102,7 @@ function App() {
         setMatchedCards(prev => [...prev, firstId, secondId]);
         setFlippedCard([]);
         setDisabled(false);
+        setCount(prev => prev + 1);
       } else {
         setTimeout(() => {
           setFlippedCard([]);
@@ -117,6 +121,7 @@ function App() {
       <section className="container mx-auto px-4 mb-10 max-w-[60rem] lg:max-w-[70rem] xl:max-w-[80rem]">
         <h4 className="mb-10">Trova le coppie di Pokèmon!</h4>
 
+        {/* select per la difficoltà */}
         <div>
           <label htmlFor="difficulty">Seleziona la difficoltà:</label>
           <select
@@ -128,6 +133,11 @@ function App() {
             <option value={6}>Medio</option>
             <option value={8}>Difficile</option>
           </select>
+        </div>
+
+        {/* contatore Pokemon catturati/indovinati */}
+        <div>
+          <h5>Pokèmon catturati: {count}</h5>
         </div>
 
 
