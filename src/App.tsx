@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "./components/PokemonCard";
+import Modal from "./components/Modal";
 
 //type alias per i Pokemon
 type Pokemon = {
@@ -28,54 +29,57 @@ function App() {
   //variabile di stato per contatore dei Pokemon
   const [count, setCount] = useState(0);
 
-  //chiamata API
-  useEffect(() => {
-    async function fetchData() {
-      try {
+  //variabile di stato per la vittoria dell'utente
+  const [isVictory, setIsVictory] = useState(false);
 
-        //variabile con il numero totale dei pokemon
-        const totalPokemons = 1010;
+  //funzione per chiamata all'API Pokemon
+  async function fetchData() {
+    try {
 
-        //prendo quanti Pokemon voglio
-        const limit = difficulty;
+      //variabile con il numero totale dei pokemon
+      const totalPokemons = 1010;
 
-        //raccolgo i set di Pokemon in modo randomico per non avere sempre gli stessi
-        const offsetPokemon = Math.floor(Math.random() * (totalPokemons - limit));
+      //prendo quanti Pokemon voglio
+      const limit = difficulty;
 
-        //prendo la lista dei Pokemon
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offsetPokemon}`);
-        const data = await response.json();
+      //raccolgo i set di Pokemon in modo randomico per non avere sempre gli stessi
+      const offsetPokemon = Math.floor(Math.random() * (totalPokemons - limit));
 
-        //recuper i dettagli per ogni Pokemon
-        const results = await Promise.all(
-          data.results.map(async (pokemon: { name: string; url: string }) => {
-            const res = await fetch(pokemon.url);
-            const info = await res.json();
-            return {
-              id: info.id,
-              name: pokemon.name,
-              image: info.sprites.other["official-artwork"].front_default
-            }
-          })
-        );
+      //prendo la lista dei Pokemon
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offsetPokemon}`);
+      const data = await response.json();
 
-        //creo le coppie duplicate
-        const duplicatedCards = [...results, ...results.map(item => ({ ...item, id: item.id + 10000 }))];
+      //recuper i dettagli per ogni Pokemon
+      const results = await Promise.all(
+        data.results.map(async (pokemon: { name: string; url: string }) => {
+          const res = await fetch(pokemon.url);
+          const info = await res.json();
+          return {
+            id: info.id,
+            name: pokemon.name,
+            image: info.sprites.other["official-artwork"].front_default
+          }
+        })
+      );
 
-        //mischio le cards dei pokemon
-        const shuffledCards = duplicatedCards.sort(() => Math.random() - 0.5);
+      //creo le coppie duplicate
+      const duplicatedCards = [...results, ...results.map(item => ({ ...item, id: item.id + 10000 }))];
 
-        //aggiorno lo stato delle cards
-        setCards(shuffledCards);
+      //mischio le cards dei pokemon
+      const shuffledCards = duplicatedCards.sort(() => Math.random() - 0.5);
 
-      } catch (error) {
-        throw new Error(`Non è stato possibile recuperare i dati del fetch dei Pokemon:${error}`);
-      }
+      //aggiorno lo stato delle cards
+      setCards(shuffledCards);
+
+    } catch (error) {
+      throw new Error(`Non è stato possibile recuperare i dati del fetch dei Pokemon:${error}`);
     }
+  }
 
+  //al cambiare della difficoltà, mostro altre cards di Pokemon
+  useEffect(() => {
     fetchData();
-  }, [difficulty]); //al cambiare della difficoltà, mostro altre cards di Pokemon
-
+  }, [difficulty]);
 
   //funzione per girare le cards
   function handleFlip(id: number) {
@@ -114,6 +118,13 @@ function App() {
     }
   }
 
+  //useEffect per mostrare la modale
+  useEffect(() => {
+    if (cards.length > 0 && matchedCards.length === cards.length) {
+      setIsVictory(true);
+    }
+  }, [matchedCards, cards]);
+
 
   return (
     <>
@@ -141,6 +152,22 @@ function App() {
           <h5>Pokèmon catturati: {count}</h5>
         </div>
 
+
+        {/* modale della vittoria */}
+        <Modal isOpen={isVictory} onClose={() => setIsVictory(false)}>
+          <h2>Complimenti, hai catturato tutti i Pokèmon!</h2>
+          <p>Hai dimostrato di essere un vero allenatore di Pokèmon.</p>
+
+          <button
+            onClick={() => {
+              setIsVictory(false);
+              setFlippedCard([]);
+              setMatchedCards([]);
+              setCount(0);
+              fetchData();
+            }}
+          >Prova a catturarne altri!</button>
+        </Modal>
 
         <ul className="grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {cards.length > 0 && (cards.map(card => {
