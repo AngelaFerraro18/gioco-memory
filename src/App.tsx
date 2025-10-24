@@ -18,14 +18,28 @@ function App() {
   //variabile di stato per bloccare i click durante il check
   const [disabled, setDisabled] = useState(false);
 
+  //variabile di stato per il match delle cards
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
+
+  //variabile di stato per la difficoltà, inizialmente 6 Pokemon
+  const [difficulty, setDifficulty] = useState(6);
 
   //chiamata API
   useEffect(() => {
     async function fetchData() {
       try {
+
+        //variabile con il numero totale dei pokemon
+        const totalPokemons = 1010;
+
+        //prendo quanti Pokemon voglio
+        const limit = difficulty;
+
+        //raccolgo i set di Pokemon in modo randomico per non avere sempre gli stessi
+        const offsetPokemon = Math.floor(Math.random() * (totalPokemons - limit));
+
         //prendo la lista dei Pokemon
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=6');
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offsetPokemon}`);
         const data = await response.json();
 
         //recuper i dettagli per ogni Pokemon
@@ -56,7 +70,7 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }, [difficulty]); //al cambiare della difficoltà, mostro altre cards di Pokemon
 
 
   //funzione per girare le cards
@@ -102,6 +116,19 @@ function App() {
 
       <section className="container mx-auto px-4 mb-10 max-w-[60rem] lg:max-w-[70rem] xl:max-w-[80rem]">
         <h4 className="mb-10">Trova le coppie di Pokèmon!</h4>
+
+        <div>
+          <label htmlFor="difficulty">Seleziona la difficoltà:</label>
+          <select
+            id="difficulty"
+            value={difficulty}
+            onChange={e => setDifficulty(Number(e.target.value))}
+          >
+            <option value={4}>Facile</option>
+            <option value={6}>Medio</option>
+            <option value={8}>Difficile</option>
+          </select>
+        </div>
 
 
         <ul className="grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
