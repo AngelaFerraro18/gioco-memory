@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+## Pokémon Memory 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Il classico gioco che mette alla prova la memoria di ognuno di noi, utilizzando le card dei Pokémon per rendere il gioco più accattivante e divertente!
 
-Currently, two official plugins are available:
+La struttura del layout è semplice e intuitiva, per permettere all’utente di iniziare subito a giocare scoprendo le carte. L’utente può scegliere tra tre livelli di difficoltà:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Facile – poche coppie di Pokémon;
 
-## React Compiler
+- Medio – numero medio di coppie;
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Difficile – molte coppie da trovare;
 
-## Expanding the ESLint configuration
+Accanto alla selezione della difficoltà c’è un contatore che tiene traccia dei Pokémon catturati. Una volta che tutte le coppie sono state trovate, appare una modale di vittoria che invita l’utente a riprovare per giocare nuovamente!
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Funzionalità principali:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Caricamento casuale di Pokémon dalla PokéAPI;
+- Effetto flip 3D delle cards;
+- Modale di vittoria con overlay;
+- Interfaccia responsive e semplice da usare;
+- Selezione della difficoltà e contatore dei Pokémon catturati.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Tecnologie utilizzate
+
+- React + Typescript;
+- Tailwind CSS;
+- PokéAPI;
+- useState e useEffect per gestire la logica del gioco.
+
+--- 
+
+## Screenshots
+
+### Schermata Home difficoltà: semplice
+
+![Schermata principale](./src/screenshots/screen-memory.jpg)
+
+### Modale della vittoria
+
+![Modale della vittoria](./src/screenshots/screen-victory.jpg)
+
+
+#### Come utilizzare il progetto
+
+1. Clona il repository con questo comando:
+```
+git clone https://github.com/tuo-username/gioco-memory.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Entra nella cartella del progetto e installa le dipendenze:
+```
+cd gioco-memory
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+npm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. Avvia il progetto con questo comando:
+```
+npm run dev
+```
+4. Il progetto sarà disponibile sul browser su questo endpoint:
+```
+http://localhost:5173
 ```
