@@ -137,7 +137,7 @@ function App() {
           />
         </div>
 
-        <h4 className="mb-10 font-title text-outline text-2xl">Trova le coppie di Pokèmon!</h4>
+        <h4 className="mb-10 font-title text-outline text-2xl">Trova le coppie di Pokémon!</h4>
 
         <div className="flex justify-between mb-10">
           {/* select per la difficoltà */}
@@ -157,14 +157,19 @@ function App() {
 
           {/* contatore Pokemon catturati/indovinati */}
           <div className="bg-sky-200 px-4 rounded-md">
-            <h5 className="font-body">Pokèmon catturati: <strong className="text-lg text-outline">{count}</strong></h5>
+            <h5 className="font-body">Pokémon catturati: <strong className="text-lg text-outline">{count}</strong></h5>
           </div>
         </div>
 
         {/* modale della vittoria */}
-        <Modal isOpen={isVictory} onClose={() => setIsVictory(false)}>
-          <h2>Complimenti, hai catturato tutti i Pokèmon!</h2>
-          <p>Hai dimostrato di essere un vero allenatore di Pokèmon.</p>
+        <Modal isOpen={isVictory}>
+          <h2 className="font-title text-outline mb-4 text-3xl">Complimenti, hai catturato tutti i Pokémon!</h2>
+
+          <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXdud3Q5dTJ6N3hiaWU4MTI2bzRlMm45ajlkMm5rM3NhaDY5ZmthNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/87qwMtRSdAwjqZhFgI/giphy.gif" alt="pokemon gif victory" className="mb-4" />
+
+          <p className="font-body mb-2">Hai dimostrato di essere un vero allenatore di Pokémon.
+            <img className="w-6 h-6 object-contain inline-block mx-2" src="pokeball.png" alt="pokeball" />
+          </p>
 
           <button
             onClick={() => {
@@ -174,6 +179,7 @@ function App() {
               setCount(0);
               fetchData();
             }}
+            className="cursor-pointer font-body text-lg hover:text-white"
           >Prova a catturarne altri!</button>
         </Modal>
 
