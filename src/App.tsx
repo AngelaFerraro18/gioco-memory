@@ -128,29 +128,36 @@ function App() {
 
   return (
     <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/sfondo-pokemon.webp')" }}>
-      <h1 className="text-xl mb-10 pt-10 text-center">Metti alla prova la tua memoria!</h1>
+      <h1 className="text-3xl mb-10 pt-10 text-center font-title text-outline">Metti alla prova la tua memoria!</h1>
 
       <section className="container mx-auto px-4 pb-10 max-w-[60rem] lg:max-w-[70rem] xl:max-w-[80rem]">
-        <h4 className="mb-10">Trova le coppie di Pokèmon!</h4>
+
+        <div className="flex justify-center mb-10">
+          <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3Q0dTc5aG9qZTMxODduNWQ5bHhqYjdqNGVxaDI3ZWhsem4xbnpraiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/i45P7BemKpvpu/giphy.gif" alt="pokemon gif" className="max-w-[300px] h-auto object-contain"
+          />
+        </div>
+
+        <h4 className="mb-10 font-title text-outline text-2xl">Trova le coppie di Pokèmon!</h4>
 
         <div className="flex justify-between mb-10">
           {/* select per la difficoltà */}
-          <div>
-            <label htmlFor="difficulty">Seleziona la difficoltà:</label>
+          <div className="bg-sky-200 px-4 rounded-md">
+            <label htmlFor="difficulty" className="font-body text-md">Seleziona la difficoltà:</label>
             <select
               id="difficulty"
               value={difficulty}
               onChange={e => setDifficulty(Number(e.target.value))}
+              className="font-title text-outline text-xl mx-2"
             >
-              <option value={4}>Facile</option>
-              <option value={6}>Medio</option>
-              <option value={8}>Difficile</option>
+              <option className="font-title bg-blue-400" value={4}>Facile</option>
+              <option className="font-title bg-blue-400" value={6}>Medio</option>
+              <option className="font-title bg-blue-400" value={8}>Difficile</option>
             </select>
           </div>
 
           {/* contatore Pokemon catturati/indovinati */}
-          <div>
-            <h5>Pokèmon catturati: {count}</h5>
+          <div className="bg-sky-200 px-4 rounded-md">
+            <h5 className="font-body">Pokèmon catturati: <strong className="text-lg text-outline">{count}</strong></h5>
           </div>
         </div>
 

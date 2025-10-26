@@ -30,7 +30,7 @@ function PokemonCard({ card, isFlipped, handleFlip }: PokemonCardProps) {
 
                     <img src={card.image || ''} alt={card.name} className="w-60 h-80 object-contain" />
 
-                    <p className="text-lg mt-2">
+                    <p className="text-lg mt-2 font-body">
                         {card.name.charAt(0).toUpperCase() + card.name.slice(1)}
                     </p>
                 </div>
